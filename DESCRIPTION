@@ -1,0 +1,22 @@
+Package: DIFSIB
+Title: SIBTEST Suite of Procedures
+Version: 1.0.0
+Authors@R: 
+    person(given = "James",
+           family = "Weese",
+           role = c("aut", "cre"),
+           email = "weesejd@gmail.com")
+Description: The DIFSIB package can assess differential item, bundle or test 
+    functioning (DIF/DBF/DTF) in dichotomous and polytomous items using a nonparametric 
+    estimation and hypothesis test. The procedures contained within DIFSIB match examinees on 
+    total test score (a latent ability proxy). Nonuniform DIF, DBF, or DTF can be 
+    assessed too. The package also provides a user interface for practioners to easily 
+    assess DIF, DBF or DTF using the SIBTEST procedures.
+License: GPL (>=3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10),
+    shiny

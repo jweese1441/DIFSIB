@@ -1,0 +1,2 @@
+utils::globalVariables(c("adjmj","adjmn","buni","ehf","ehr","fnamef","fnamer","head","iflg","kr20j","kr20n",
+                         "r1","rkurt","se","skew","ybarmj","ybarmn","na.omit","pchisq","pnorm","read.csv","runif"))
