@@ -38,7 +38,6 @@ psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, match
   # RELEASE DATE). THAT CODE HAS BEEN RELEASED BY MEASURED PROGRESS AND IS NOW CONSIDERED OPEN SOURCED.
   # YOU CAN FIND THAT CODE AT THE  FOLLOWING WEBSITE
   # https://psychometrics.onlinehelp.measuredprogress.org/tools/dif/.
-  #
   # I take no credit for creating the code, only the translation and it's implementation in R
   # This code will be updated to become vectorized so it is more efficient.
   #
