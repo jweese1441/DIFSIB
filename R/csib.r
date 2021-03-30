@@ -3,8 +3,8 @@
 #' This function assesses non-uniform DIF with one crossing point using the Crossing-SIBTEST procedure (Li & Stout, 1996).
 #' The function outputs the non-uniform and uniform DIF magnitudes as well as the significance testing.
 #'
-#' @param data_ref  The dataset that contains the reference group participants
-#' @param data_foc  The dataset that contains the focal group participants
+#' @param data_ref  The dataset that contains the reference group participants. Dichotomous data must only contain 0's and 1's.
+#' @param data_foc  The dataset that contains the focal group participants. Dichotomous data must only contain 0's and 1's.
 #' @param minc  The minimum number of individuals in a give total test score category. Initialized to 2 per Shealy and Stout (1993) recommendation
 #' @param cusr  The guess correction factor. This is initialized to 0.2, but can be changed based on the items used. The cusr value is the average of guess correction across the items in the dataset.
 #' @param idw  The weighting factor. This is initialized to use the reference and focal group weighting recommended by Shealy and Stout (1993)

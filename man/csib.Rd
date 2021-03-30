@@ -16,9 +16,9 @@ csib(
 )
 }
 \arguments{
-\item{data_ref}{The dataset that contains the reference group participants}
+\item{data_ref}{The dataset that contains the reference group participants. Dichotomous data must only contain 0's and 1's.}
 
-\item{data_foc}{The dataset that contains the focal group participants}
+\item{data_foc}{The dataset that contains the focal group participants. Dichotomous data must only contain 0's and 1's.}
 
 \item{minc}{The minimum number of individuals in a give total test score category. Initialized to 2 per Shealy and Stout (1993) recommendation}
 
