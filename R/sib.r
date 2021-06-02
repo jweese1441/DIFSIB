@@ -239,6 +239,8 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
       if(jnd == 0){
         a1u=min(a1u,0)
       }
+      estaujn[is.na(estaujn)] <-0
+      estaunn[is.na(estaunn)] <-0
       if(rfd == 1){
         bbb <- wls(ehr,jknmaj,lowcts+2,bkp+2)
         b0 <- bbb[1]
@@ -269,6 +271,8 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
         estaujn[is.na(estaujn)] <-0
         estaunn[is.na(estaunn)] <-0
       }
+      estaujn[is.na(estaujn)] <-0
+      estaunn[is.na(estaunn)] <-0
       if(rfd != 1){
         bbb <- wls(ehf,jknmin,lowcts+2,bkp+2)
         b0 <- bbb[1]
