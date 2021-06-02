@@ -286,7 +286,7 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
           if(ehr[i] < ((estaunn[i]+a1l)*m0)){
             ehr[i]<-((estaunn[i]+a1l)*(m0))
           }else{
-          if(ehr[i] > ((estaunn[i]+a1u)*m0)){
+            if(ehr[i] > ((estaunn[i]+a1u)*m0)){
               ehr[i]<-((estaunn[i]+a1u)*(m0))
             }
           }
