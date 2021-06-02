@@ -276,6 +276,8 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
         for(i in (lowcts+1):(bkp+1)){
           estaunn[i]=(b0+b1*(i-1))/(m0)
         }
+        estaujn[is.na(estaujn)] <-0
+        estaunn[is.na(estaunn)] <-0
         for(i in (lowcts+2):(bkp+2)){
           if(ehr[i] < ((estaunn[i]+a1l)*m0)){
             ehr[i]<-((estaunn[i]+a1l)*(m0))
