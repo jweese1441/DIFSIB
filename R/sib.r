@@ -179,10 +179,10 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
           nlf2=nlf2+1
         }
       }
-      if(max(nlr1,nlf1) >= ((bkp)-lowcts+1)/2){
+      if(max(nlr1,nlf1) >= ((bkp)-(lowcts+1))/2){
         mtid <-1
       }else{
-        if(min(nlr2,nlf2) >= (bkp-lowcts+1)/2){
+        if(min(nlr2,nlf2) >= (bkp-(lowcts+1))/2){
           mtid <- 2
         }else{
           mtid <- 3
