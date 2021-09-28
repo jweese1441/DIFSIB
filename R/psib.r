@@ -184,13 +184,11 @@ psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, match
   estaun <- (vsavmn+kr20pn*((kk-1)-vsavmn))/hvscore
   adjmj  <- shnew(m=1,adjmj,ybarmj,iclind,estauj,estaun,iflg,hvscore,mhsscor)
   if(length(adjmj) == 1){
-    r1 = -99.0
-    return(r1)
+    stop("There was an error computing the adjusted mean for the reference group")
   }
   adjmn <- shnew(m=2,adjmn,ybarmn,iclind,estauj,estaun,iflg,hvscore,mhsscor)
   if(length(adjmj) == 1){
-    r1 = -99.0
-    return(r1)
+    stop("There was an error computing the adjusted mean for the focal group")
   }
   xnk <- adjmj - adjmn
   xnk[!iclind] <- 0
