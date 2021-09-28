@@ -152,13 +152,11 @@ csib <- function(data_ref, data_foc,minc=2,cusr = .2,idw = 0,suspect_items, matc
     estaun[is.na(estaun)] <-0
     adjmj  <- shadjm(m=1,m0,adjmj,ybarmj,iclind,estauj,estaun,iflg)
     if(length(ybarmj) == 1){
-      r1 = -99.0
-      return(r1)
+      stop("There was an error computing the adjusted mean for the reference group")
     }
     adjmn <- shadjm(m=2,m0,adjmn,ybarmn,iclind,estauj,estaun,iflg)
     if(length(ybarmn) == 1){
-      r1 = -99.0
-      return(r1)
+      stop("There was an error computing the adjusted mean for the reference group")
     }
     xnk <- adjmj - adjmn
     xnk[!iclind] <- 0
