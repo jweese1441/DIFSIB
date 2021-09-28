@@ -324,13 +324,11 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
     estaujn[is.na(estaujn)] <- estaunn[is.na(estaunn)] <-0
     adjmj  <- shadjm(m=1,m0,adjmj,ybarmj,iclind,estaujn,estaunn,iflg)
     if(length(ybarmj) == 1){
-      r1 = -99.0
-      return(r1)
+      stop("There was an error computing the adjusted mean for the reference group")
     }
     adjmn <- shadjm(m=2,m0,adjmn,ybarmn,iclind,estaujn,estaunn,iflg)
     if(length(ybarmn) == 1){
-      r1 = -99.0
-      return(r1)
+      stop("There was an error computing the adjusted mean for the focal group")
     }
     xnk <- adjmj - adjmn
     xnk[!iclind] <- 0
