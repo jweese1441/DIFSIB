@@ -11,6 +11,7 @@
 #' @param suspect_items  the item(s) to be assess for DIF. Listing one item number will assess for DIF on that item, multiple items (e.g. c(2,3,8)) will assess DIF for the bundle of items.
 #' @param matching_items  the list of items to match on.
 #' @param listwise  initialized to 1, this inidicates that the procedure will not delete any rows with missing data, changing this to 2 will listwise delete.
+#' @param nch  a vector indicating the number of categories for each item. Example if there are 5 items and each has 3 catgories nch <- c(3,3,3,3,3). If there are 5 items and items 1 - 3 have 4 categories and items 4 and 5 have 2 then nch <- (4,4,4,2,2)
 #' @aliases psib
 #' @export psib
 #' @references Chang, H. H., Mazzeo, J. & Roussos, L. (1996). DIF for Polytomously Scored Items: An Adaptation of the SIBTEST Procedure. Journal of Educational Measurement, 33, 333-353.
@@ -20,15 +21,15 @@
 #'
 #' \dontrun{
 #'
-#' #perform POLYSIBTEST with one suspect item 
-#'
+#' #perform POLYSIBTEST with one suspect item. Sample data has 20 items with 5 categories each.
+#' nch <- rep(5,20)
 #' psib(data_ref = data_refP, data_foc = data_focP, 
-#' minc = 2,suspect_items = c(20), matching_items = c(1:19))
+#' minc = 2,suspect_items = c(20), matching_items = c(1:19),nch = nch)
 #'
 #' #perform POLYSIBTEST with a bundle of suspect items 
 #'
 #' psib(data_ref = data_refP, data_foc = data_focP, 
-#' minc = 2, suspect_items = c(16,17,18,19,20), matching_items = c(1:15))
+#' minc = 2, suspect_items = c(16,17,18,19,20), matching_items = c(1:15),nch = nch)
 #'
 #' }
 psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, matching_items,listwise = 1){
@@ -355,7 +356,6 @@ ethat1 <- function( tau,estauj,ybarmj,n0){
   nthsum <- length(matching_items)
   m0 = nthsum
   ivalid <- matching_items
-  nch <- rep(100,nitem)
   hscore = sum(nch)
   iden <-  idifj <- idifn <-ixtsum <- sad<-  NULL
   jknmin <- jknmaj <- rep(0,hscore)
