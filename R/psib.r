@@ -32,7 +32,7 @@
 #' minc = 2, suspect_items = c(16,17,18,19,20), matching_items = c(1:15),nch = nch)
 #'
 #' }
-psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, matching_items,listwise = 1){
+psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, matching_items,listwise = 1,nch){
   ############################################################################################################1
   ############################################################################################################1
   # NOTE: THIS CODE IS ADAPTED FROM THE ORIGINAL FORTRAN CODE THAT POWERED THE SIBTEST V1.7 (2005 SOFTWARE
