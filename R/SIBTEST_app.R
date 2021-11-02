@@ -60,6 +60,10 @@ SIBTEST_app <- function() {
           textInput(inputId = "matching",
                     label = "What are the matching subtest items: (e.g. type in 1,2,3,4,5,...,20 for items 1 through 20",
           ) ,
+          tags$hr(),
+          textInput(inputId = "ncat",
+                    label = "What are number of categoreis fore each item: (e.g. type in 5,5,5,5,5,...,5 for items 1 through 20",
+          ) ,
           tags$head(tags$script(src = "message-handler.js")),
           actionButton("do", "Run")
         ),
@@ -103,6 +107,7 @@ SIBTEST_app <- function() {
       })
       listwise <- reactive({as.numeric(input$listwise)})
       matching <- reactive({as.numeric(unlist(strsplit(input$matching,",")))})
+      ncat <- reactive({as.numeric(unlist(strsplit(input$ncat,",")))})
       suspect <- reactive({as.numeric(unlist(strsplit(input$suspect,",")))})
       cusr <- reactive({as.numeric(input$cusr)})
       minc <- reactive({as.numeric(input$minc)})
@@ -114,7 +119,7 @@ SIBTEST_app <- function() {
           output$contents <- renderTable({DIFSIB::csib(data_ref(),data_foc(),suspect_items = suspect(),matching_items = matching(), cusr = cusr(), minc = minc(),listwise = listwise())
           },digits = 3)}
         if(version() == 3){
-          output$contents <- renderTable({DIFSIB::psib(data_ref = data_ref(),data_foc = data_foc(),suspect_items = suspect(),matching_items = matching())
+          output$contents <- renderTable({DIFSIB::psib(data_ref = data_ref(),data_foc = data_foc(),suspect_items = suspect(),matching_items = matching(),nch=ncat)
           },digits = 3)
         }
       })

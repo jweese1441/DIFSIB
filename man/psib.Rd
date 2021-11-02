@@ -12,7 +12,8 @@ psib(
   idw = 0,
   suspect_items,
   matching_items,
-  listwise = 1
+  listwise = 1,
+  nch
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ psib(
 \item{matching_items}{the list of items to match on.}
 
 \item{listwise}{initialized to 1, this inidicates that the procedure will not delete any rows with missing data, changing this to 2 will listwise delete.}
+
+\item{nch}{a vector indicating the number of categories for each item. Example if there are 5 items and each has 3 catgories nch <- c(3,3,3,3,3). If there are 5 items and items 1 - 3 have 4 categories and items 4 and 5 have 2 then nch <- (4,4,4,2,2)}
 }
 \description{
 This function assesses uniform DIF for polytomous DATA using the POLYSIBTEST procedure (Chang et al., 1996).
@@ -40,15 +43,15 @@ The function outputs the uniform DIF magnitudes as well as the significance test
 
 \dontrun{
 
-#perform POLYSIBTEST with one suspect item 
-
+#perform POLYSIBTEST with one suspect item. Sample data has 20 items with 5 categories each.
+nch <- rep(5,20)
 psib(data_ref = data_refP, data_foc = data_focP, 
-minc = 2,suspect_items = c(20), matching_items = c(1:19))
+minc = 2,suspect_items = c(20), matching_items = c(1:19),nch = nch)
 
 #perform POLYSIBTEST with a bundle of suspect items 
 
 psib(data_ref = data_refP, data_foc = data_focP, 
-minc = 2, suspect_items = c(16,17,18,19,20), matching_items = c(1:15))
+minc = 2, suspect_items = c(16,17,18,19,20), matching_items = c(1:15),nch = nch)
 
 }
 }
