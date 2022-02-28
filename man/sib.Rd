@@ -64,4 +64,8 @@ DIF-Pack (2021) Measured Progress. https://psychometrics.onlinehelp.measuredprog
 Jiang, H., & Stout, W. (1998). Improved Type I Error Control and Reduced Estimation Bias for DIF Detection Using SIBTEST. Journal of Educational and Behavioral Statistics, 23(4), 291–322. https://doi.org/10.3102/10769986023004291
 
 Shealy, R. & Stout, W. (1993). A model-based standardization approach that separates true bias/DIF from group ability differences and detect test bias/DTF as well as item bias/DIF. Psychometrika, 58, 159-194.
+
+Weese, J. D., Turner, R. C., Ames, A., Crawford, B., & Liang, X. (2022). Reevaluating the SIBTEST Classification Heuristics for Dichotomous Differential Item Functioning. Educational and Psychological Measurement, 82(2), 307–329. https://doi.org/10.1177/00131644211017267
+
+Weese, J. D. (2020). Development of an Effect Size to Classify the Magnitude of DIF in Dichotomous and Polytomous Items. Graduate Theses and Dissertations Retrieved from https://scholarworks.uark.edu/etd/3896
 }

@@ -245,11 +245,11 @@ beta_calc <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n){
     return(c(buni,se,r1,0,0))
   }else{ 
     se = rd^0.5
-    if(sd_denom > 0){
+    if(sum(sd_denom) > 0){
     sd = se/sqrt(sum(sd_denom))
     es1 <- buni/sd  
     }
-    if(sd_denom == 0){
+    if(sum(sd_denom) == 0){
       warning("There was an error computing the standard deviation, it is 0 and therfore, no effect size can be calculated")
       sd = 0
       es1 = 0

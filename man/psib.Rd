@@ -61,4 +61,6 @@ Chang, H. H., Mazzeo, J. & Roussos, L. (1996). DIF for Polytomously Scored Items
 DIF-Pack (2021) Measured Progress. https://psychometrics.onlinehelp.measuredprogress.org/tools/dif/
 
 Shealy, R. & Stout, W. (1993). A model-based standardization approach that separates true bias/DIF from group ability differences and detect test bias/DTF as well as item bias/DIF. Psychometrika, 58, 159-194.
+
+Weese, J. D., Turner, R. C., Liang, X., Ames, A., & Crawford, B.  (accepted). Implementing a Standardized Effect Size in the POLYSIBTEST Procedure
 }
