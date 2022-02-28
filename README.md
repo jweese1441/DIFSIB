@@ -6,7 +6,7 @@ to perform the SIBTEST, Crossing-SIBTEST, and POLYSIBTEST procedures. Further, t
 
 The original code can be found here: https://psychometrics.onlinehelp.measuredprogress.org/tools/dif/ 
 
-The user manual can be found here: [DIFSIB_1.0.1.pdf](https://github.com/jweese1441/DIFSIB/files/7461632/DIFSIB_1.0.1.pdf)
+The user manual can be found here: [DIFSIB_1.0.2.pdf](https://github.com/jweese1441/DIFSIB/files/8155285/DIFSIB_1.0.2.pdf)
 
 In the below code, using force =TRUE will make the installation occur even if an update has not occured and you want to overwrite your previous install.
 
