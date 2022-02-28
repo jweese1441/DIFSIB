@@ -207,6 +207,7 @@ csib <- function(data_ref, data_foc,minc=2,cusr = .2,idw = 0,suspect_items, matc
     }
     buni = rn
     if(rd == 0){
+      warning("There was an error computing the standard error, it is 0 and therfore, no p-value can be calculated")
       iflag=6
       se = 0
       r1 = -99

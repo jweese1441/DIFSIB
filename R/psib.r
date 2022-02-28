@@ -17,6 +17,7 @@
 #' @references Chang, H. H., Mazzeo, J. & Roussos, L. (1996). DIF for Polytomously Scored Items: An Adaptation of the SIBTEST Procedure. Journal of Educational Measurement, 33, 333-353.
 #' @references DIF-Pack (2021) Measured Progress. https://psychometrics.onlinehelp.measuredprogress.org/tools/dif/
 #' @references Shealy, R. & Stout, W. (1993). A model-based standardization approach that separates true bias/DIF from group ability differences and detect test bias/DTF as well as item bias/DIF. Psychometrika, 58, 159-194.
+#' @references Weese, J. D., Turner, R. C., Liang, X., Ames, A., & Crawford, B.  (accepted). Implementing a Standardized Effect Size in the POLYSIBTEST Procedure
 #' @examples
 #'
 #' \dontrun{
@@ -199,6 +200,8 @@ psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, match
   se <- yyy[2]
   buni <- yyy[1]
   r1 <- yyy[3]
+  sd1 <- yyy[4]
+  es1 <- yyy[5]
   se = se*n0
   buni = buni*n0
   if(r1 < 0){
@@ -206,7 +209,7 @@ psib <- function(data_ref, data_foc,minc=2,cusr = 0,idw = 0,suspect_items, match
   }else{
     p <- (1-pnorm(r1,0,1))*2
   }
-  return(c(buni,se,r1,p,pelimr,pelimf))
+  return(c(buni,se,r1,p,sd1,es1,pelimr,pelimf))
 }
 beta_calc <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n){
   wgt <- sd_denom <- rep(0,n+1)
@@ -224,6 +227,7 @@ beta_calc <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n){
     if(iclind[k] == 1){
       if(idw == 0){
         wgt[k] = (jknmaj[k] + jknmin[k])/(cntmaj+cntmin)
+        sd_denom[k] = (wgt[k]^2)*(1/jknmaj[k]+1/jknmin[k])
       }
       if(idw == 1){
         wgt[k] = jknmin[k]/cntmin
@@ -232,16 +236,27 @@ beta_calc <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n){
     rn = rn + xnk[k]*wgt[k]
     rd = rd + (wgt[k]^2.0)*dhatnk[k]
   }
+  buni = rn 
   if(rd == 0){
-    iflag=6
-    se=0.0
-    r1 = -99
-    return(c(rn,se,r1))
-  }else{
+    warning("There was an error computing the standard error, it is 0 and therfore, no p-value can be calculated")
+    iflag=6 
+    se=0.0  
+    r1 = -99 
+    return(c(buni,se,r1,0,0))
+  }else{ 
     se = rd^0.5
-    r1 = rn /se
+    if(sd_denom > 0){
+    sd = se/sqrt(sum(sd_denom))
+    es1 <- buni/sd  
+    }
+    if(sd_denom == 0){
+      warning("There was an error computing the standard deviation, it is 0 and therfore, no effect size can be calculated")
+      sd = 0
+      es1 = 0
+    }
+    r1 = rn /se 
   }
-  return(c(rn,se,r1))
+  return(c(buni,se,r1,sd,es1))
 }
 shnew <- function(m,ybardt,sercor,iclind,estauj,
                   estaun,iflg,n0,mhsscor){
@@ -520,9 +535,9 @@ ethat1 <- function( tau,estauj,ybarmj,n0){
                     jf,itdifj,itdifn,
                     netsum,nthsum,nitem,minc,cusr,iflag,idw,
                     fnamer,fnamef,hvscore,hscore,hsscore,ndiv,idiv,ipv,jknmaj1,jknmin1)
-  out <- data.frame(suspect_items = paste(suspect_items,collapse = " "), beta = output[1],sigma_uni = output[2],  z = output[3],
+  out <- data.frame(suspect_items = paste(suspect_items,collapse = " "), beta = output[1],sigma_uni = output[2], std = output[5], effect_size = output[6],z = output[3],
                     p_value = output[4])
-  out <- cbind(out[1],round(out[2:5],3))
-  colnames(out) <- c("Suspect Item","Beta","SE","z","p")
+  out <- cbind(out[1],round(out[2:7],3))
+  colnames(out) <- c("Suspect Item(s)","Beta","SE","SD","Delta","z","p")
   return(out)
 }

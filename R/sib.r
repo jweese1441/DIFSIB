@@ -16,6 +16,8 @@
 #' @references DIF-Pack (2021) Measured Progress. https://psychometrics.onlinehelp.measuredprogress.org/tools/dif/
 #' @references Jiang, H., & Stout, W. (1998). Improved Type I Error Control and Reduced Estimation Bias for DIF Detection Using SIBTEST. Journal of Educational and Behavioral Statistics, 23(4), 291–322. https://doi.org/10.3102/10769986023004291
 #' @references Shealy, R. & Stout, W. (1993). A model-based standardization approach that separates true bias/DIF from group ability differences and detect test bias/DTF as well as item bias/DIF. Psychometrika, 58, 159-194.
+#' @references Weese, J. D., Turner, R. C., Ames, A., Crawford, B., & Liang, X. (2022). Reevaluating the SIBTEST Classification Heuristics for Dichotomous Differential Item Functioning. Educational and Psychological Measurement, 82(2), 307–329. https://doi.org/10.1177/00131644211017267
+#' @references Weese, J. D. (2020). Development of an Effect Size to Classify the Magnitude of DIF in Dichotomous and Polytomous Items. Graduate Theses and Dissertations Retrieved from https://scholarworks.uark.edu/etd/3896
 #' @examples
 #'
 #' \dontrun{
@@ -338,8 +340,9 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
     se <- yyy[[1]][2]
     buni <- yyy[[1]][1]
     r1 <- yyy[[1]][3]
-    wgt <- yyy[[2]]
-    se = se*n0
+    sd1 <- yyy[[1]][4]
+    es1 <- yyy[[1]][5]
+    se = se*n0 
     buni = buni*n0
     if(r1 < 0){
       p <- (pnorm(r1,0,1))*2
@@ -347,7 +350,7 @@ sibuni <- function(data_ref,data_foc,xmaj,ymaj,xmin,ymin,itdifj,
       p <- (1-pnorm(r1,0,1))*2
     }
     sendback <- list()
-    sendback[[1]] <-c(buni,se,r1,p,pelimr,pelimf)
+    sendback[[1]] <-c(buni,se,r1,p,sd1,es1,pelimr,pelimf)
     return(sendback)
 }
 sctat <- function(rf,sc,nsin,rm,sd,skew,rkurt){
@@ -400,6 +403,7 @@ bver2 <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n,idw,wgt,iflag){
     if(iclind[k] == 1){
       if(idw == 0){
         wgt[k] = (jknmaj[k] + jknmin[k])/(cntmaj+cntmin)
+        sd_denom[k] = (wgt[k]^2)*(1/jknmaj[k]+1/jknmin[k])
       }
       if(idw == 1){
         wgt[k] = jknmin[k]/cntmin
@@ -410,17 +414,32 @@ bver2 <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n,idw,wgt,iflag){
   }
   buni = rn
   if(rd == 0){
-    iflag=6
-    se = 0
-    r1 = -99
-    return(c(buni,se,r1))
-  }else{
+    iflag=6 
+    se=0.0  
+    r1 = -99 
+    warning("There was an error computing the standard error, it is 0 and therfore, no p-value can be calculated")
+    return(c(buni,se,r1,0,0))
+  }else{ 
     se = rd^0.5
-    r1 = rn /se
+    if(idw == 0){
+      if(sd_denom > 0){
+      sd = se/sqrt(sum(sd_denom))
+      es1 <- buni/sd
+      }
+      if(sd_denom == 0){
+        warning("There was an error computing the standard deviation, it is 0 and therfore, no effect size can be calculated")
+        sd = 0
+        es = 0
+      }
+    }
+    if(idw == 1){
+      sd = -99
+      es1 <- -99
+    }
+    r1 = rn /se 
   }
   xx123 <- list()
-  xx123[[1]] <-c(buni,se,r1)
-  xx123[[2]] <- wgt
+  xx123[[1]] <-c(buni,se,r1,sd,es1)
   return(xx123)
 }
   shadjm <- function(m,n0,ybardt,sercor,iclind,estauj,
@@ -756,9 +775,9 @@ bver2 <- function(xnk,jknmaj,jknmin,dhatnk,iclind,n,idw,wgt,iflag){
                    itdifj,itdifn,ivalid,
                    netsum,nthsum,nitem,minc,cusr,idw,
                    ybarmj,ybarmn,jknmaj1,jknmin1,ehr,ehf)
-  out <- data.frame(suspect_items = paste(suspect_items,collapse = " "), beta = output[[1]][1],sigma_uni = output[[1]][2],  z = output[[1]][3],
-                    p_value = output[[1]][4])
-  out <- cbind(out[1],round(out[2:5],3))
-  colnames(out) <- c("Suspect Item","Beta","SE","z","p")
+  out <- data.frame(suspect_items = paste(suspect_items,collapse = " "), beta = output[[1]][1],sigma_uni = output[[1]][2],  
+                    std = output[[1]][5], effect_size = output[[1]][6],z = output[[1]][3],p_value = output[[1]][4])
+  out <- cbind(out[1],round(out[2:7],3))
+  colnames(out) <- c("Suspect Item","Beta","SE","SD","Delta","z","p")
   return(out)
 }
